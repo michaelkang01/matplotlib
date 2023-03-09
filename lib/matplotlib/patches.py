@@ -2364,18 +2364,22 @@ class BoxStyle(_Style):
     class LArrow:
         """A box in the shape of a left-pointing arrow."""
 
-        def __init__(self, pad=0.3, head_width=0):
+        def __init__(self, pad=0.3, head_width=0, head_length=0):
             """
             Parameters
             ----------
             pad : float, default: 0.3
                 The amount of padding around the original box.
             head_width : float, default: 0
-                The headwidth of the arrow.
-                If head_width < width, show default arrow.
+                The head-width of the arrow.
+                If head_width < width, use default head-width.
+            head_length: float, default: 0
+                The head-length of the arrow.
+                If head_length <= 0, use default head-length.
             """
             self.pad = pad
             self.head_width = head_width
+            self.head_length = head_length
 
         def __call__(self, x0, y0, width, height, mutation_size):
             # padding
@@ -2401,9 +2405,17 @@ class BoxStyle(_Style):
                 # create an arrow with given head_width
                 dy = self.head_width / 2
 
+            # head length.
+            if (self.head_length > 0):
+                # create an arrow with given head_length
+                dxxx = self.head_length
+            else:
+                # create default arrow
+                dxxx = dx
+
             return Path._create_closed(
                 [(x0 + dxx, y0), (x1, y0), (x1, y1), (x0 + dxx, y1),
-                 (x0 + dxx, y1 + dy), (x0 - dx, y0 + dx),
+                 (x0 + dxx, y1 + dy), (x0 - dxxx, y0 + dx),
                  (x0 + dxx, y0 - dy),  # arrow
                  (x0 + dxx, y0)])
 
@@ -2422,18 +2434,22 @@ class BoxStyle(_Style):
         """A box in the shape of a two-way arrow."""
         # Modified from LArrow to add a right arrow to the bbox.
 
-        def __init__(self, pad=0.3, head_width=0):
+        def __init__(self, pad=0.3, head_width=0, head_length=0):
             """
             Parameters
             ----------
             pad : float, default: 0.3
                 The amount of padding around the original box.
             head_width : float, default: 0
-                The headwidth of the arrow.
-                If head_width < width, show default arrow.
+                The head-width of the arrow.
+                If head_width < width, use default head-width.
+            head_length: float, default: 0
+                The head-length of the arrow.
+                If head_length <= 0, use default head-length.
             """
             self.pad = pad
             self.head_width = head_width
+            self.head_length = head_length
 
         def __call__(self, x0, y0, width, height, mutation_size):
             # padding
@@ -2461,12 +2477,20 @@ class BoxStyle(_Style):
                 # create an arrow with given head_width
                 dy = self.head_width / 2
             
+            # head length.
+            if (self.head_length > 0):
+                # create an arrow with given head_length
+                dxxx = self.head_length
+            else:
+                # create default arrow
+                dxxx = dx
+
             return Path._create_closed([
                 (x0 + dxx, y0), (x1, y0),  # bot-segment
-                (x1, y0 - dy), (x1 + dx + dxx, y0 + dx),
+                (x1, y0 - dy), (x1 + dxxx + dxx, y0 + dx),
                 (x1, y1 + dy),  # right-arrow
                 (x1, y1), (x0 + dxx, y1),  # top-segment
-                (x0 + dxx, y1 + dy), (x0 - dx, y0 + dx),
+                (x0 + dxx, y1 + dy), (x0 - dxxx, y0 + dx),
                 (x0 + dxx, y0 - dy),  # left-arrow
                 (x0 + dxx, y0)])
 
