@@ -2476,7 +2476,7 @@ class BoxStyle(_Style):
             else:
                 # create an arrow with given head_width
                 dy = self.head_width / 2
-            
+
             # head length.
             if (self.head_length > 0):
                 # create an arrow with given head_length
