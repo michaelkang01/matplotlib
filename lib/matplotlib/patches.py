@@ -9,7 +9,7 @@ from numbers import Number, Real
 import textwrap
 from types import SimpleNamespace
 from collections import namedtuple
-from matplotlib.transforms import Affine2D, IdentityTransform
+from matplotlib.transforms import Affine2D, Bbox, IdentityTransform, TransformedBbox
 
 import numpy as np
 
