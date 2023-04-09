@@ -1553,29 +1553,29 @@ def test_make_norm_from_scale_name():
 
 def test_like_norms_same():
     #Norms should pass if exactly the same
-    norm1 = mcolors.SymLogNorm(3, vmax=5, linscale=1, base=np.e)
-    norm2 = mcolors.SymLogNorm(3, vmax=5, linscale=1, base=np.e)
+    norm1 = mcolors.SymLogNorm(3, vmax=5, base=np.e)
+    norm2 = mcolors.SymLogNorm(3, vmax=5, base=np.e)
     assert norm1 == norm2
 
 
 def test_like_norms_same_diff_order():
     #Norms should pass if exactly the same
-    norm1 = mcolors.SymLogNorm(3, linscale=1, vmax=5, base=np.e)
-    norm2 = mcolors.SymLogNorm(3, vmax=5, linscale=1, base=np.e)
+    norm1 = mcolors.SymLogNorm(3, vmax=5, base=np.e)
+    norm2 = mcolors.SymLogNorm(3, base=np.e, vmax=5,)
     assert norm1 == norm2
 
 
 def test_like_norms_diff():
     #Same type of norms with different values should false
-    norm1 = mcolors.SymLogNorm(3, vmax=8, linscale=2, base=np.e)
-    norm2 = mcolors.SymLogNorm(3, vmax=5, linscale=1, base=np.e)
+    norm1 = mcolors.SymLogNorm(3, vmax=8, base=np.e)
+    norm2 = mcolors.SymLogNorm(3, vmax=5, base=np.e)
     assert norm1 != norm2
 
 
 def test_unlike_norms_similar():
     #Norms that use different attributes, but same vlaues should false
-    norm1 = mcolors.CenteredNorm(3, vmax=5, vcenter=1, halfrange=np.e,)
-    norm2 = mcolors.SymLogNorm(3, vmax=5, linscale=1, base=np.e)
+    norm1 = mcolors.CenteredNorm(3, halfrange=np.e,)
+    norm2 = mcolors.SymLogNorm(3, vmax=5, base=np.e)
     assert norm1 != norm2
 
 

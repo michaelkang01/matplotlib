@@ -1396,8 +1396,9 @@ class Normalize:
         not equal, due to the chance of "lucky input".
         """
         #Cheeky List Comprehension
-        selfItems = {(attribute,value) for attribute, value in self.__dict__.items()}
-        otherItems = {(attribute,value) for attribute, value in other.__dict__.items()}
+        invalid = {'_scale', '_trf', 'callbacks'}
+        selfItems = {(attribute,value) for attribute, value in self.__dict__.items() if attribute not in invalid}
+        otherItems = {(attribute,value) for attribute, value in other.__dict__.items() if attribute not in invalid}
         return selfItems == otherItems
 
 
